@@ -31,5 +31,23 @@ def test(request):
     # db.child("agents").child("Lana").update({"name": "Lana Anthony Kane"}, user['idToken']) #Updates can be made with the update() method.
     # db.child("agents").remove(user['idToken']) #The remove() method removes objects from the database.
     # db.child("agents").child("Lana").remove(user['idToken']) #Or a specific value from an object
+    dic = {'message_sent': False, 'error': False, }
+    if request.method != 'POST':
+        return render(request, 'index.html', dic)
 
-    return render( request, 'index.html' )
+    name = request.POST['name']
+    email = request.POST['email']
+    message = request.POST['message']
+    write_to_database(name, email, message)
+
+    return render(request, 'index.html')
+
+def write_to_database( name, email, message ):
+    db = firebase.database()
+    entry = {"name": name, "email": email, "message": message }
+    db.child("customer").child("customer 1").set(entry, user['idToken'])
+    # all_agents = db.child("agents").get(user['idToken']).val() #You can get all of the values of an object
+    # lana_data = db.child("agents").child("Lana").get(user['idToken']).val() #all_agents = db.child("agents").get(user['idToken']).val()
+    # db.child("agents").child("Lana").update({"name": "Lana Anthony Kane"}, user['idToken']) #Updates can be made with the update() method.
+    # db.child("agents").remove(user['idToken']) #The remove() method removes objects from the database.
+    # db.child("agents").child("Lana").remove(user['idToken']) #Or a specific value from an object
