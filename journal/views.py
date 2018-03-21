@@ -32,4 +32,4 @@ def test(request):
     # db.child("agents").remove(user['idToken']) #The remove() method removes objects from the database.
     # db.child("agents").child("Lana").remove(user['idToken']) #Or a specific value from an object
 
-    return render( request, 'journal_test.html' )
+    return render( request, 'index.html' )
